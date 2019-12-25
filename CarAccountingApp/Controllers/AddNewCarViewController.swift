@@ -9,13 +9,11 @@
 import UIKit
 import CoreData
 
-protocol AddNewCarViewControllerDelegate {
-    func addNewCarViewController(_ AddNewCarViewController: AddNewCarViewController, didAddNewCar newCar: Car)
-}
+
 
 class AddNewCarViewController: UIViewController {
     
-    var selectedBodyType = CarBodyType.allCases[0].rawValue 
+    var selectedBodyType = CarBodyType.allCases[0].rawValue
 
     @IBOutlet weak var manufacturingCompanyTextField: UITextField!
     
@@ -25,7 +23,7 @@ class AddNewCarViewController: UIViewController {
     
     @IBOutlet var bodyTypePickerView: UIPickerView!
     
-    var delegate: AddNewCarViewControllerDelegate?
+    
     
     
     
@@ -43,11 +41,20 @@ class AddNewCarViewController: UIViewController {
         let manufacturingCompany = manufacturingCompanyTextField.text ?? ""
         let modelCar = modelTextField.text ?? ""
         let yearOfIssue = Int(yearOfIssueTextField.text ?? "0")
-        let bodyType = CarBodyType(rawValue: selectedBodyType)
-        let newCar = Car(yearOfIssue: yearOfIssue!, manufacturingCompany: manufacturingCompany, model: modelCar, bodyType: bodyType!)
-        delegate?.addNewCarViewController(self, didAddNewCar: newCar)
-        //let vc = storyboard?.instantiateViewController(identifier: "MainTableViewController") as! MainTableViewController
-        //self.navigationController?.pushViewController(vc, animated: true)
+        let bodyType = selectedBodyType
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        let newCar = Car(context: context)
+        newCar.manufacturingCompany = manufacturingCompany
+        newCar.model = modelCar
+        newCar.yearOfIssue = Int32(yearOfIssue!)
+        newCar.bodyType = bodyType
+        newCar.idCar = UUID().uuidString
+        do {
+            try context.save()
+        } catch let error {
+            print("Failed to save due to error \(error).")
+        }
     }
 
 

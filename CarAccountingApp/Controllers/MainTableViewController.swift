@@ -7,10 +7,11 @@
 //
 
 import UIKit
+import CoreData
 
-class MainTableViewController: UIViewController, AddNewCarViewControllerDelegate {
+class MainTableViewController: UIViewController {
     
-    var model = CarModel()
+    var cars = [Car]()
     let idCell = "CarCell"
     
     @IBOutlet weak var accountingCarTableView: UITableView!
@@ -29,18 +30,28 @@ class MainTableViewController: UIViewController, AddNewCarViewControllerDelegate
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationItem.largeTitleDisplayMode = .always
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        let fetchRequest = Car.fetchRequest() as NSFetchRequest<Car>
+        do {
+            cars = try context.fetch(fetchRequest)
+        } catch let error {
+            print("Failed to save due to error \(error).")
+        }
+        accountingCarTableView.reloadData()
+        
         
     }
     @objc func goToAddingNewCar() {
         let vc = storyboard?.instantiateViewController(identifier: "AddNewCarViewController") as! AddNewCarViewController
         self.navigationController?.pushViewController(vc, animated: true)
-        vc.delegate = self
+       
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteSwipe = UIContextualAction(style: .normal, title: "Delete") { (action, view, success) in
             self.accountingCarTableView.performBatchUpdates({
-                self.model.deleteCar(indexPath: indexPath)
+                //self.model.deleteCar(indexPath: indexPath)
                 self.accountingCarTableView.deleteRows(at:  [indexPath], with: .automatic)
                 success(true)
             }, completion: nil)
@@ -51,18 +62,13 @@ class MainTableViewController: UIViewController, AddNewCarViewControllerDelegate
     }
     
     
-    func addNewCarViewController(_ AddNewCarViewController: AddNewCarViewController, didAddNewCar newCar: Car){
-        model.cars.append(newCar)
-        accountingCarTableView.reloadData()
-    }
-    
 
 
 }
 extension MainTableViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return model.cars.count
+        return cars.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -70,8 +76,10 @@ extension MainTableViewController: UITableViewDataSource, UITableViewDelegate {
         if cell == nil {
             cell = UITableViewCell(style: .default, reuseIdentifier: idCell)
         }
-        let car = model.cars[indexPath.row]
-        cell!.textLabel?.text = "\(car.manufacturingCompany) \(car.model)"
+        let car = cars[indexPath.row]
+        let manufacturingCompany = car.manufacturingCompany ?? ""
+        let model = car.model ?? ""
+        cell!.textLabel?.text = "\(manufacturingCompany) \(model)"
         cell!.imageView?.image = UIImage(named: "car")
         return cell!
     }
@@ -82,13 +90,18 @@ extension MainTableViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = storyboard?.instantiateViewController(identifier: "SelectedCarViewController") as! SelectedCarViewController
-        let editingVC = storyboard?.instantiateViewController(identifier: "EditingCarViewController") as! EditingCarViewController
-        let car = model.cars[indexPath.row]
-        vc.receivedTitle  = "\(car.manufacturingCompany) \(car.model)"
-        vc.receivedDescription = "The year of issue is \(car.yearOfIssue). The car's body type is a \(car.bodyType)"
-        editingVC.receivedManufacturingCompany = "\(car.manufacturingCompany)"
-        editingVC.receivedModel = "\(car.model)"
-        editingVC.receivedYearOfIssue = "\(car.yearOfIssue)"
+        let car = cars[indexPath.row]
+        let manufacturingCompany = car.manufacturingCompany ?? ""
+        let model = car.model ?? ""
+        var yearOfIssue : String
+        if let checkYearOfIssue = car.yearOfIssue as Int32? {
+            yearOfIssue = String(car.yearOfIssue)
+        } else {
+            yearOfIssue = " "
+        }
+        let bodyType = car.bodyType ?? ""
+        vc.receivedTitle  = "\(manufacturingCompany) \(model)"
+        vc.receivedDescription = "The year of issue is \(yearOfIssue). The car's body type is a \(bodyType)"
         self.navigationController?.pushViewController(vc, animated: true)
         print(indexPath.row)
     }
