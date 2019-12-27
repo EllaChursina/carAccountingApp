@@ -14,12 +14,11 @@
 		CD04C4D123AA1FB80020B299 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD04C4CF23AA1FB80020B299 /* LaunchScreen.storyboard */; };
 		CD04C4DC23AA1FB80020B299 /* CarAccountingAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD04C4DB23AA1FB80020B299 /* CarAccountingAppTests.swift */; };
 		CD04C4E723AA1FB80020B299 /* CarAccountingAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD04C4E623AA1FB80020B299 /* CarAccountingAppUITests.swift */; };
-		CD04C4F523AA32940020B299 /* CarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD04C4F423AA32940020B299 /* CarModel.swift */; };
-		CD04C4F723AB6B410020B299 /* SelectedCarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD04C4F623AB6B410020B299 /* SelectedCarViewController.swift */; };
 		CD04C4FE23B0EB6A0020B299 /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD04C4FD23B0EB6A0020B299 /* MainTableViewController.swift */; };
 		CD21678C23B235EC00A8371F /* AddNewCarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD21678B23B235EC00A8371F /* AddNewCarViewController.swift */; };
 		CD21678E23B3888700A8371F /* EditingCarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD21678D23B3888600A8371F /* EditingCarViewController.swift */; };
 		CD21679123B3AB6C00A8371F /* CarAccountingApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CD21678F23B3AB6C00A8371F /* CarAccountingApp.xcdatamodeld */; };
+		CD21679323B3B8E300A8371F /* CarBodyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD21679223B3B8E300A8371F /* CarBodyType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,12 +52,11 @@
 		CD04C4E223AA1FB80020B299 /* CarAccountingAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CarAccountingAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD04C4E623AA1FB80020B299 /* CarAccountingAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarAccountingAppUITests.swift; sourceTree = "<group>"; };
 		CD04C4E823AA1FB80020B299 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CD04C4F423AA32940020B299 /* CarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarModel.swift; sourceTree = "<group>"; };
-		CD04C4F623AB6B410020B299 /* SelectedCarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedCarViewController.swift; sourceTree = "<group>"; };
 		CD04C4FD23B0EB6A0020B299 /* MainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
 		CD21678B23B235EC00A8371F /* AddNewCarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewCarViewController.swift; sourceTree = "<group>"; };
 		CD21678D23B3888600A8371F /* EditingCarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingCarViewController.swift; sourceTree = "<group>"; };
 		CD21679023B3AB6C00A8371F /* CarAccountingApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CarAccountingApp.xcdatamodel; sourceTree = "<group>"; };
+		CD21679223B3B8E300A8371F /* CarBodyType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarBodyType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,12 +110,12 @@
 				CD04C4F823ABE23A0020B299 /* Controllers */,
 				CD04C4C423AA1FB00020B299 /* AppDelegate.swift */,
 				CD04C4C623AA1FB00020B299 /* SceneDelegate.swift */,
-				CD04C4F423AA32940020B299 /* CarModel.swift */,
 				CD04C4CA23AA1FB00020B299 /* Main.storyboard */,
 				CD04C4CD23AA1FB80020B299 /* Assets.xcassets */,
 				CD04C4CF23AA1FB80020B299 /* LaunchScreen.storyboard */,
 				CD04C4D223AA1FB80020B299 /* Info.plist */,
 				CD21678F23B3AB6C00A8371F /* CarAccountingApp.xcdatamodeld */,
+				CD21679223B3B8E300A8371F /* CarBodyType.swift */,
 			);
 			path = CarAccountingApp;
 			sourceTree = "<group>";
@@ -145,7 +143,6 @@
 			children = (
 				CD04C4FD23B0EB6A0020B299 /* MainTableViewController.swift */,
 				CD21678B23B235EC00A8371F /* AddNewCarViewController.swift */,
-				CD04C4F623AB6B410020B299 /* SelectedCarViewController.swift */,
 				CD21678D23B3888600A8371F /* EditingCarViewController.swift */,
 			);
 			path = Controllers;
@@ -282,11 +279,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CD04C4F523AA32940020B299 /* CarModel.swift in Sources */,
 				CD04C4C523AA1FB00020B299 /* AppDelegate.swift in Sources */,
 				CD21678E23B3888700A8371F /* EditingCarViewController.swift in Sources */,
+				CD21679323B3B8E300A8371F /* CarBodyType.swift in Sources */,
 				CD21678C23B235EC00A8371F /* AddNewCarViewController.swift in Sources */,
-				CD04C4F723AB6B410020B299 /* SelectedCarViewController.swift in Sources */,
 				CD04C4FE23B0EB6A0020B299 /* MainTableViewController.swift in Sources */,
 				CD04C4C723AA1FB00020B299 /* SceneDelegate.swift in Sources */,
 				CD21679123B3AB6C00A8371F /* CarAccountingApp.xcdatamodeld in Sources */,
