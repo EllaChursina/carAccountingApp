@@ -13,7 +13,8 @@ import CoreData
 
 class AddNewCarViewController: UIViewController {
     
-    var selectedBodyType = CarBodyType.allCases[0].rawValue
+    var selectedBodyType : String?
+    
 
     @IBOutlet weak var manufacturingCompanyTextField: UITextField!
     
@@ -23,7 +24,7 @@ class AddNewCarViewController: UIViewController {
     
     @IBOutlet var bodyTypePickerView: UIPickerView!
     
-    
+   
     
     
     

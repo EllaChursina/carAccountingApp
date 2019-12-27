@@ -47,12 +47,38 @@ class MainTableViewController: UIViewController {
         self.navigationController?.pushViewController(vc, animated: true)
        
     }
-    
+    //код удаления без save
+    /*func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if cars.count > indexPath.row {
+            let car = cars[indexPath.row]
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        context.delete(car)
+        cars.remove(at: indexPath.row)
+        accountingCarTableView.deleteRows(at:  [indexPath], with: .fade)
+        }
+        
+    }*/
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
         let deleteSwipe = UIContextualAction(style: .normal, title: "Delete") { (action, view, success) in
             self.accountingCarTableView.performBatchUpdates({
-                //self.model.deleteCar(indexPath: indexPath)
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                let context = appDelegate.persistentContainer.viewContext
+                let car = self.cars[indexPath.row]
+                context.delete(car)
+                self.cars.remove(at: indexPath.row)
+                do{
+                    try context.save()
+                } catch let error{
+                    print("Failed to save due to error \(error).")
+                }
                 self.accountingCarTableView.deleteRows(at:  [indexPath], with: .automatic)
+                self.accountingCarTableView.reloadData()
                 success(true)
             }, completion: nil)
         }
@@ -89,21 +115,25 @@ extension MainTableViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = storyboard?.instantiateViewController(identifier: "SelectedCarViewController") as! SelectedCarViewController
+        let vc = storyboard?.instantiateViewController(identifier: "EditingCarViewController") as! EditingCarViewController
         let car = cars[indexPath.row]
         let manufacturingCompany = car.manufacturingCompany ?? ""
         let model = car.model ?? ""
         var yearOfIssue : String
-        if let checkYearOfIssue = car.yearOfIssue as Int32? {
+        if (car.yearOfIssue as Int32?) != nil {
             yearOfIssue = String(car.yearOfIssue)
         } else {
             yearOfIssue = " "
         }
+        let idCar = car.idCar ?? ""
         let bodyType = car.bodyType ?? ""
-        vc.receivedTitle  = "\(manufacturingCompany) \(model)"
-        vc.receivedDescription = "The year of issue is \(yearOfIssue). The car's body type is a \(bodyType)"
+        vc.manufacturingCompanyDefaultText = manufacturingCompany
+        vc.modelDefaultText = model
+        vc.yearOfIssueDefaultText = yearOfIssue
+        vc.selectedBodyType = bodyType
+        vc.selectedCarID = idCar
         self.navigationController?.pushViewController(vc, animated: true)
-        print(indexPath.row)
+        print(bodyType)
     }
         
     }

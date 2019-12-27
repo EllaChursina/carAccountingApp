@@ -198,10 +198,6 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="C6r-8M-e7o"/>
                     </view>
-                    <connections>
-                        <outlet property="selectedCarDescription" destination="6PB-eR-Ck3" id="Rr8-Gg-DlQ"/>
-                        <outlet property="selectedCarTitle" destination="FR3-sY-KEn" id="EAb-7O-K93"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ArL-NR-3NC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -267,7 +263,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Body type" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="REg-x9-XSj">
-                                <rect key="frame" x="20" y="328" width="209" height="25"/>
+                                <rect key="frame" x="20" y="303" width="209" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="Y1N-JZ-gKj"/>
                                 </constraints>
@@ -300,12 +296,14 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ajG-XF-BLA">
-                                <rect key="frame" x="244" y="290.5" width="145" height="100"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tuz-dE-jPT">
+                                <rect key="frame" x="244" y="298.5" width="145" height="34"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="2De-u0-Y0e"/>
+                                    <constraint firstAttribute="width" constant="145" id="i0g-AQ-aMc"/>
                                 </constraints>
-                            </pickerView>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -316,34 +314,35 @@
                             <constraint firstItem="ljP-zg-vOz" firstAttribute="leading" secondItem="G7B-Ve-OwQ" secondAttribute="trailing" constant="15" id="9fy-IS-dqj"/>
                             <constraint firstItem="veN-Zl-PAi" firstAttribute="width" secondItem="aRJ-Bx-Y9F" secondAttribute="width" id="AUl-Nf-hAa"/>
                             <constraint firstItem="YwM-oM-bHz" firstAttribute="height" secondItem="IjY-WP-8Wg" secondAttribute="height" id="AtU-SX-OXw"/>
-                            <constraint firstItem="ajG-XF-BLA" firstAttribute="centerY" secondItem="REg-x9-XSj" secondAttribute="centerY" id="BZw-2r-Bg0"/>
                             <constraint firstItem="G7B-Ve-OwQ" firstAttribute="top" secondItem="qcB-eX-iqr" secondAttribute="bottom" constant="30" id="Cfs-Ya-qJf"/>
                             <constraint firstItem="aRJ-Bx-Y9F" firstAttribute="leading" secondItem="G7B-Ve-OwQ" secondAttribute="leading" id="GPh-lA-9w4"/>
                             <constraint firstItem="YwM-oM-bHz" firstAttribute="leading" secondItem="veN-Zl-PAi" secondAttribute="trailing" constant="15" id="Haf-VX-Gxl"/>
                             <constraint firstItem="qcB-eX-iqr" firstAttribute="centerX" secondItem="6Yv-hL-CZ9" secondAttribute="centerX" id="Hk6-QC-JI8"/>
-                            <constraint firstItem="ajG-XF-BLA" firstAttribute="width" secondItem="YwM-oM-bHz" secondAttribute="width" id="KVM-El-T94"/>
                             <constraint firstItem="REg-x9-XSj" firstAttribute="width" secondItem="veN-Zl-PAi" secondAttribute="width" id="OMi-GL-sZF"/>
                             <constraint firstItem="IjY-WP-8Wg" firstAttribute="leading" secondItem="ljP-zg-vOz" secondAttribute="leading" id="P5U-eP-SAM"/>
                             <constraint firstItem="YwM-oM-bHz" firstAttribute="leading" secondItem="IjY-WP-8Wg" secondAttribute="leading" id="Pfm-Yq-btW"/>
+                            <constraint firstItem="tuz-dE-jPT" firstAttribute="height" secondItem="YwM-oM-bHz" secondAttribute="height" id="Q2R-f4-Fd2"/>
                             <constraint firstItem="IjY-WP-8Wg" firstAttribute="centerY" secondItem="aRJ-Bx-Y9F" secondAttribute="centerY" id="RZE-oL-EJg"/>
                             <constraint firstItem="IjY-WP-8Wg" firstAttribute="leading" secondItem="aRJ-Bx-Y9F" secondAttribute="trailing" constant="15" id="Sxi-dd-ca6"/>
                             <constraint firstItem="G7B-Ve-OwQ" firstAttribute="leading" secondItem="6Yv-hL-CZ9" secondAttribute="leading" constant="20" id="W6L-aw-IK8"/>
                             <constraint firstItem="aRJ-Bx-Y9F" firstAttribute="width" secondItem="G7B-Ve-OwQ" secondAttribute="width" id="Zpv-Nj-5B5"/>
                             <constraint firstItem="YwM-oM-bHz" firstAttribute="centerY" secondItem="veN-Zl-PAi" secondAttribute="centerY" id="aK3-NZ-GNL"/>
                             <constraint firstItem="aRJ-Bx-Y9F" firstAttribute="top" secondItem="G7B-Ve-OwQ" secondAttribute="bottom" constant="25" id="cwX-mo-GXz"/>
-                            <constraint firstItem="ajG-XF-BLA" firstAttribute="leading" secondItem="YwM-oM-bHz" secondAttribute="leading" id="dsQ-yx-sEb"/>
+                            <constraint firstItem="tuz-dE-jPT" firstAttribute="width" secondItem="YwM-oM-bHz" secondAttribute="width" id="gRP-Jp-xXr"/>
                             <constraint firstItem="qcB-eX-iqr" firstAttribute="leading" secondItem="6Yv-hL-CZ9" secondAttribute="leading" constant="20" id="hw7-Ne-cga"/>
-                            <constraint firstItem="REg-x9-XSj" firstAttribute="top" secondItem="veN-Zl-PAi" secondAttribute="bottom" constant="50" id="kJ3-lG-kdL"/>
+                            <constraint firstItem="REg-x9-XSj" firstAttribute="top" secondItem="veN-Zl-PAi" secondAttribute="bottom" constant="25" id="kJ3-lG-kdL"/>
                             <constraint firstItem="REg-x9-XSj" firstAttribute="leading" secondItem="veN-Zl-PAi" secondAttribute="leading" id="kpB-fA-PdM"/>
+                            <constraint firstItem="tuz-dE-jPT" firstAttribute="centerY" secondItem="REg-x9-XSj" secondAttribute="centerY" id="nmo-8h-cta"/>
                             <constraint firstItem="IjY-WP-8Wg" firstAttribute="width" secondItem="ljP-zg-vOz" secondAttribute="width" id="s2W-qP-Wpp"/>
                             <constraint firstItem="veN-Zl-PAi" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="aRJ-Bx-Y9F" secondAttribute="leading" id="v4m-y3-Axw"/>
                             <constraint firstItem="qcB-eX-iqr" firstAttribute="top" secondItem="6Yv-hL-CZ9" secondAttribute="top" constant="20" id="wYY-CC-TLg"/>
+                            <constraint firstItem="tuz-dE-jPT" firstAttribute="leading" secondItem="YwM-oM-bHz" secondAttribute="leading" id="xmg-I7-3oj"/>
                             <constraint firstItem="6Yv-hL-CZ9" firstAttribute="trailing" secondItem="qcB-eX-iqr" secondAttribute="trailing" constant="20" id="y14-OQ-vnV"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Yv-hL-CZ9"/>
                     </view>
                     <connections>
-                        <outlet property="bodyTypePickerView" destination="ajG-XF-BLA" id="rxG-HW-QK1"/>
+                        <outlet property="bodyTypeTextField" destination="tuz-dE-jPT" id="kJr-t5-M2U"/>
                         <outlet property="manufacturingCompanyTextField" destination="ljP-zg-vOz" id="kOQ-TC-2pV"/>
                         <outlet property="modelTextField" destination="IjY-WP-8Wg" id="Gp1-cF-BiY"/>
                         <outlet property="yearOfIssueTextField" destination="YwM-oM-bHz" id="27D-Er-5B0"/>

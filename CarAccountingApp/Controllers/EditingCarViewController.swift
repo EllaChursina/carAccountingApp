@@ -7,9 +7,15 @@
 //
 
 import UIKit
+import CoreData
 
 class EditingCarViewController: UIViewController {
     
+    var selectedBodyType : String?
+    var manufacturingCompanyDefaultText = ""
+    var modelDefaultText = ""
+    var yearOfIssueDefaultText = ""
+    var selectedCarID = ""
     
     @IBOutlet weak var manufacturingCompanyTextField: UITextField!
     
@@ -18,50 +24,68 @@ class EditingCarViewController: UIViewController {
     
     @IBOutlet weak var yearOfIssueTextField: UITextField!
     
-    
-    @IBOutlet weak var bodyTypePickerView: UIPickerView!
-    
-    var receivedManufacturingCompany = "1"
-    
-    var receivedModel = "1"
-    
-    var receivedYearOfIssue = "1"
-    
-    var receivedBodyType = "1"
+    @IBOutlet var bodyTypeTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.largeTitleDisplayMode = .never
-        bodyTypePickerView.dataSource = self
-        bodyTypePickerView.delegate = self
         let saveNewCar = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveTapped))
         navigationItem.rightBarButtonItem = saveNewCar
-        manufacturingCompanyTextField.text = receivedManufacturingCompany
-        modelTextField.text = receivedModel
-        yearOfIssueTextField.text = receivedYearOfIssue
-        
+        createBodyTypePickerView()
+        manufacturingCompanyTextField.text = manufacturingCompanyDefaultText
+        modelTextField.text = modelDefaultText
+        yearOfIssueTextField.text = yearOfIssueDefaultText
+        bodyTypeTextField.text = selectedBodyType
+       
         
         // Do any additional setup after loading the view.
     }
-    
+    func createBodyTypePickerView(){
+        
+      let bodyTypePickerView = UIPickerView()
+      bodyTypePickerView.delegate = self
+        
+      bodyTypeTextField.inputView = bodyTypePickerView
+        
+    }
     @objc func saveTapped() {
         let manufacturingCompany = manufacturingCompanyTextField.text ?? ""
         let modelCar = modelTextField.text ?? ""
         let yearOfIssue = Int(yearOfIssueTextField.text ?? "0")
-        //let bodyType = CarBodyType(rawValue: selectedBodyType)
-        //let newCar = Car(yearOfIssue: yearOfIssue!, manufacturingCompany: manufacturingCompany, model: modelCar, bodyType: bodyType!)
-        //delegate?.addNewCarViewController(self, didAddNewCar: newCar)
-
+        let bodyType = selectedBodyType
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        let fetchRequest = Car.fetchRequest() as NSFetchRequest<Car>
+        do {
+            let results = try context.fetch(fetchRequest)
+            if results.count > 0 {
+                for result in results {
+                    if result.idCar == selectedCarID {
+                        result.manufacturingCompany = manufacturingCompany
+                        result.model = modelCar
+                        result.yearOfIssue = Int32(yearOfIssue!)
+                        result.bodyType = bodyType
+                    }
+                }
+            }
+        } catch let error {
+            print("Failed to save due to error \(error).")
+        }
+            
+        do {
+            try context.save()
+        } catch let error {
+            print("Failed to save due to error \(error).")
+        }
     }
-
-
-    }
+}
     extension EditingCarViewController: UIPickerViewDataSource, UIPickerViewDelegate {
         func numberOfComponents(in pickerView: UIPickerView) -> Int {
             return 1
         }
         
         func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+
             return CarBodyType.allCases.count
         }
         
@@ -70,7 +94,9 @@ class EditingCarViewController: UIViewController {
         }
         
         func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-            receivedBodyType = CarBodyType.allCases[row].rawValue
+            let value = CarBodyType.allCases[row].rawValue
+            selectedBodyType = value
+            bodyTypeTextField.text = selectedBodyType
        }
     }
 
